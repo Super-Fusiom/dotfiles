@@ -25,3 +25,4 @@ while true; do
         echo 'Wrong choice, use either nvidia, amd or vm'
     fi
 done
+echo "PATH='$HOME/.config/rofi/bin:$PATH'" >> ~/.bashrc
