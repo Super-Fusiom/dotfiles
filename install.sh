@@ -11,7 +11,7 @@ cd yay
 makepkg -si
 cd
 rm -rf yay
-yay -S bspwm kitty polybar rofi sxhkd thunar nitrogen picom xorg-server xorg-xinit nerd-fonts-fira-code ttf-font-awesome betterlockscreen flameshot
+yay -S bspwm kitty polybar rofi sxhkd thunar nitrogen picom xorg-server xorg-xinit nerd-fonts-fira-code ttf-font-awesome betterlockscreen flameshot firefox
 #Ask what GPU is used for proper drivers
 while true; do
     read -p "Do you use an amd (AMD) or nvidia (NVIDIA) gpu or is this a virtual machine(VM)?" nav
