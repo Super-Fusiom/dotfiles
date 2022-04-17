@@ -4,8 +4,7 @@ pgrep -x sxhkd > /dev/null || sxhkd &
 
 $HOME/.config/polybar/launch.sh
 
-bspc monitor DP-0 -d I II III IV
-bspc monitor HDMI-0 -d V VI VII VIII 
+bspc monitor -d I II III IV 
 
 bspc config border_width         0
 bspc config window_gap          12
