@@ -11,7 +11,9 @@ cd yay
 makepkg -si
 cd
 rm -rf yay
-yay -S bspwm kitty polybar rofi sxhkd thunar nitrogen picom xorg-server xorg-xinit nerd-fonts-fira-code ttf-font-awesome betterlockscreen flameshot firefox
+yay -S bspwm kitty polybar rofi sxhkd thunar nitrogen picom xorg-server dunst xorg-xinit nerd-fonts-fira-code ttf-font-awesome betterlockscreen flameshot firefox
+#Copy the default dunst rc file to the home directory... it will change once i've made my own config
+sudo cp /etc/dunst/dunstrc ~/.config/dunst/dunstrc
 #Ask what GPU is used for proper drivers
 while true; do
     read -p "Do you use an amd (AMD) or nvidia (NVIDIA) gpu or is this a virtual machine(VM)?" nav
