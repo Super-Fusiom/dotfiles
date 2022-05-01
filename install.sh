@@ -26,4 +26,6 @@ while true; do
     fi
 done
 echo "PATH='$HOME/.config/rofi/bin:$PATH'" >> ~/.bashrc
-echo "To get a GUI, type\nstartx"
+cd
+rm -rf Arch-config
+startx
