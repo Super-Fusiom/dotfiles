@@ -11,25 +11,27 @@ if [ "$USER" == 'root' ] ; then
     mount "${disk}${rroot}" /mnt 
     mkdir /mnt/boot /mnt/boot/efi
     mount "${disk}${refi}" /mnt/boot/efi 
-    pacstrap /mnt base base-devel linux linux-firmware ntp networkmanager grub efibootmgr zsh archlinux-keyring 
+    pacstrap /mnt base base-devel linux linux-firmware ntp networkmanager grub efibootmgr zsh archlinux-keyring nvim
     genfstab -U /mnt >> /mnt/etc/fstab
     echo "ln -sf /usr/share/zoneinfo/NZ /etc/localtime; 
     vim /etc/locale.gen;
     locale-gen; echo 'LANG=en_NZ.UTF-8' >> /etc/locale.conf; echo 'auto' >> /etc/hostname; 
-    systemctl enable Networkmanager; 
+    systemctl enable NetworkManager;
+    sudo systemctl enable ntpd; 
     useradd -m paul; passwd paul; 
-    EDITOR=vim visudo; 
+    EDITOR=nvim visudo; 
     grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=GRUB; 
     grub-mkconfig -o /boot/grub/grub.cfg; 
     chsh -s /bin/zsh paul;
     exit;" >> /mnt/part2.sh
     chmod +x /mnt/part2.sh 
     arch-chroot /mnt /bin/bash /part2.sh
-    cp Arch-config /mnt/home/paul
+    cp -r /root/Arch-config /mnt/home/paul
     echo "source ~/Arch-config/install.sh" >> /mnt/paul/.zshrc
     rm /mnt/part2.sh
     reboot;
 else
+    cd Arch-config
     mkdir ~/.config
     mkdir ~/.themes
     cp -r dotconfig/* ~/.config
@@ -42,9 +44,7 @@ else
     makepkg -si
     cd
     rm -rf yay
-    yay -S bashtop bspwm gnome-shell kitty nvim polybar rofi sxhkd nautilus feh picom xorg-server dunst xorg-xinit nerd-fonts-fira-code ttf-font-awesome betterlockscreen flameshot firefox ntp
-    # Enable ntp for accurate time
-    sudo systemctl enable --now ntpd
+    yay -S btop polkit bspwm alacritty nvim polybar rofi sxhkd nautilus feh picom xorg-server dunst xorg-xinit nerd-fonts-fira-code ttf-font-awesome betterlockscreen flameshot firefox ntp
     #Copy the default dunst rc file to the home directory... it will change once i've made my own config
     sudo cp /etc/dunst/dunstrc ~/.config/dunst/dunstrc
     #Ask what GPU is used for proper drivers
