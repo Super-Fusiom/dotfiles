@@ -27,7 +27,7 @@ if [ "$USER" == 'root' ] ; then
     chmod +x /mnt/part2.sh 
     arch-chroot /mnt /bin/bash /part2.sh
     cp -r /root/Arch-config /mnt/home/paul
-    echo "source ~/Arch-config/install.sh" >> /mnt/paul/.zshrc
+    echo "source ~/Arch-config/install.sh" >> /mnt/home/paul/.zshrc
     rm /mnt/part2.sh
     reboot;
 else
