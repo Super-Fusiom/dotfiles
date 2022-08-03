@@ -24,7 +24,7 @@ if [ "$USER" == 'root' ] ; then
     chsh -s /bin/zsh paul;
     exit;" >> /mnt/part2.sh
     chmod +x /mnt/part2.sh 
-    arch-chroot /mnt /bin/bash /mnt/part2.sh
+    arch-chroot /mnt /bin/bash /part2.sh
     cp Arch-config /mnt/home/paul
     echo "source ~/Arch-config/install.sh" >> /mnt/paul/.zshrc
     rm /mnt/part2.sh
