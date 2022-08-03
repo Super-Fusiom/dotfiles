@@ -11,7 +11,7 @@ if [ "$USER" == 'root' ] ; then
     mount "${disk}${rroot}" /mnt 
     mkdir /mnt/boot /mnt/boot/efi
     mount "${disk}${refi}" /mnt/boot/efi 
-    pacstrap /mnt base base-devel linux linux-firmware ntp networkmanager grub efibootmgr zsh archlinux-keyring neovim
+    pacstrap /mnt base base-devel linux linux-firmware ntp networkmanager grub efibootmgr zsh archlinux-keyring neovim git
     genfstab -U /mnt >> /mnt/etc/fstab
     echo "ln -sf /usr/share/zoneinfo/NZ /etc/localtime; 
     vim /etc/locale.gen;
