@@ -15,7 +15,7 @@ if [ "$USER" == 'root' ] ; then
     genfstab -U /mnt >> /mnt/etc/fstab
     echo "ln -sf /usr/share/zoneinfo/NZ /etc/localtime; 
     vim /etc/locale.gen;
-    locale-gen; echo 'LANG=en_NZ.UTF-8' >> /etc/locale.conf; echo '' >> /etc/hostname; 
+    locale-gen; echo 'LANG=en_NZ.UTF-8' >> /etc/locale.conf; echo 'auto' >> /etc/hostname; 
     systemctl enable Networkmanager; 
     useradd -m paul; passwd paul; 
     EDITOR=vim visudo; 
