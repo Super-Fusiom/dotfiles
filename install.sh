@@ -12,8 +12,8 @@ if [ "$USER" == 'root' ] ; then
     mkdir /mnt/boot /mnt/boot/efi
     mount "${disk}${refi}" /mnt/boot/efi 
     pacstrap /mnt base base-devel linux linux-firmware ntp networkmanager grub efibootmgr zsh archlinux-keyring 
-    genfstab -U /mnt >> /mnt/etc/fstab 
-    arch-chroot /mnt /bin/bash "ln -sf /usr/share/zoneinfo/NZ /etc/localtime; 
+    genfstab -U /mnt >> /mnt/etc/fstab
+    echo "ln -sf /usr/share/zoneinfo/NZ /etc/localtime; 
     vim /etc/locale.gen;
     locale-gen; echo 'LANG=en_NZ.UTF-8' >> /etc/locale.conf; echo '' >> /etc/hostname; 
     systemctl enable Networkmanager; 
@@ -22,9 +22,12 @@ if [ "$USER" == 'root' ] ; then
     grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=GRUB; 
     grub-mkconfig -o /boot/grub/grub.cfg; 
     chsh -s /bin/zsh paul;
-    exit;"
+    exit;" >> /mnt/part2.sh
+    chmod +x /mnt/part2.sh 
+    arch-chroot /mnt /bin/bash /mnt/part2.sh
     cp Arch-config /mnt/home/paul
     echo "source ~/Arch-config/install.sh" >> /mnt/paul/.zshrc
+    rm /mnt/part2.sh
     reboot;
 else
     mkdir ~/.config
