@@ -14,7 +14,7 @@ if [ "$USER" == 'root' ] ; then
     pacstrap /mnt base base-devel linux linux-firmware ntp networkmanager grub efibootmgr zsh archlinux-keyring neovim git
     genfstab -U /mnt >> /mnt/etc/fstab
     echo "ln -sf /usr/share/zoneinfo/NZ /etc/localtime; 
-    vim /etc/locale.gen;
+    nvim /etc/locale.gen;
     locale-gen; echo 'LANG=en_NZ.UTF-8' >> /etc/locale.conf; echo 'auto' >> /etc/hostname; 
     systemctl enable NetworkManager;
     sudo systemctl enable ntpd; 
@@ -47,7 +47,7 @@ else
     yay -S btop polkit bspwm alacritty polybar rofi sxhkd nautilus feh picom xorg-server dunst xorg-xinit nerd-fonts-fira-code ttf-font-awesome betterlockscreen flameshot firefox
     #Ask what GPU is used for proper drivers
     while true; do
-        read -rp "Do you use an amd (AMD) or nvidia (NVIDIA) gpu or is this a virtual machine(VM)?" nav
+        read -rp "Do you use an amd (AMD) or nvidia (NVIDIA) gpu or is this a virtual machine(VM)?   " nav
         if [ "$nav" == 'NVIDIA' ] || [ "$nav" == 'Nvidia' ] || [ "$nav" == 'nvidia' ] ; then
             yay -S nvidia nvidia-utils; break
         elif [ "$nav" == 'AMD' ] || [ "$nav" == 'amd' ] || [ "$nav" == 'Amd' ] ; then
@@ -58,7 +58,7 @@ else
             echo 'Wrong choice, use either nvidia, amd or vm'
         fi
     done
-    echo "PATH='$HOME/.config/rofi/bin:$PATH'" >> ~/.bashrc
+    echo "PATH='$HOME/.config/rofi/bin:$PATH'" >> ~/.zshrc
     cd
     rm -rf Arch-config
     startx
