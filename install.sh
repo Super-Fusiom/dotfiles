@@ -24,7 +24,7 @@ if [ "$USER" == 'root' ] ; then
            echo "Wrong choice, use AMD or Intel"
         fi
     done
-    pacstrap /mnt base base-devel linux linux-firmware ntp networkmanager grub efibootmgr zsh archlinux-keyring neovim git
+    pacstrap /mnt base base-devel linux linux-firmware ntp networkmanager grub efibootmgr zsh archlinux-keyring neovim git fontconfig pipewire wireplumber pipewire-alsa pipewire-pulse pipewire-jack
     genfstab -U /mnt >> /mnt/etc/fstab
     echo "ln -sf /usr/share/zoneinfo/NZ /etc/localtime; 
     nvim /etc/locale.gen;
@@ -40,7 +40,8 @@ if [ "$USER" == 'root' ] ; then
     chmod +x /mnt/part2.sh 
     arch-chroot /mnt /bin/bash /part2.sh
     cp -r /root/Arch-config /mnt/home/paul
-    echo "source ~/Arch-config/install.sh" >> /mnt/home/paul/.zshrc
+    #Hand off perms to user for execution 
+    echo "sudo chown paul ~/Arch-config; source ~/Arch-config/install.sh" >> /mnt/home/paul/.zshrc
     rm /mnt/part2.sh
     reboot;
 else
@@ -61,8 +62,9 @@ else
     makepkg -si
     cd
     rm -rf yay
-    yay -S btop polkit bspwm alacritty polybar rofi sxhkd nautilus feh picom xorg-server dunst xorg-xinit nerd-fonts-fira-code ttf-font-awesome betterlockscreen flameshot firefox wget xdg-ninja mpv mpd ani-cli visual-studio-code-bin pfetch man-db xdg-user-dirs pipewire wireplumber pipewire-alsa pipewire-pulse pipewire-jack
+    yay -S btop polkit bspwm alacritty polybar rofi sxhkd nautilus feh picom xorg-server dunst xorg-xinit nerd-fonts-fira-code ttf-font-awesome betterlockscreen flameshot firefox wget xdg-ninja mpv mpd ani-cli visual-studio-code-bin pfetch man-db xdg-user-dirs
     #Ask what GPU is used for proper drivers
+    xdg-user-dirs-update
     while true; do
         read -rp "Do you use an amd (AMD) or nvidia (NVIDIA) gpu or is this a virtual machine(VM)?   " nav
         if [ "$nav" == 'NVIDIA' ] || [ "$nav" == 'Nvidia' ] || [ "$nav" == 'nvidia' ] ; then
