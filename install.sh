@@ -10,7 +10,20 @@ if [ "$USER" == 'root' ] ; then
     mkfs.fat -F32 "${disk}${refi}" 
     mount "${disk}${rroot}" /mnt 
     mkdir /mnt/boot /mnt/boot/efi
-    mount "${disk}${refi}" /mnt/boot/efi 
+    mount "${disk}${refi}" /mnt/boot/efi
+    # Getting correct ucode 
+    while true; do
+        read -rp "AMD or Intel CPU?   " cpu
+        if [ "$cpu" == 'Intel' ] || [ "$cpu" == 'intel' ] || [ "$cpu" == 'INTEL' ] ; then
+            pacstrap /mnt intel-ucode;
+            break
+        elif [ "$cpu" == 'amd' ] || [ "$cpu" == 'Amd' ] || [ "$cpu" == 'AMD' ] ; then
+            pacstrap /mnt amd-ucode;
+            break
+        else
+           echo "Wrong choice, use AMD or Intel"
+        fi
+    done
     pacstrap /mnt base base-devel linux linux-firmware ntp networkmanager grub efibootmgr zsh archlinux-keyring neovim git
     genfstab -U /mnt >> /mnt/etc/fstab
     echo "ln -sf /usr/share/zoneinfo/NZ /etc/localtime; 
@@ -22,7 +35,7 @@ if [ "$USER" == 'root' ] ; then
     EDITOR=nvim visudo; 
     grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=GRUB; 
     grub-mkconfig -o /boot/grub/grub.cfg; 
-    chsh -s /bin/zsh paul;
+    chsh -s /usr/bin/zsh paul;
     exit;" >> /mnt/part2.sh
     chmod +x /mnt/part2.sh 
     arch-chroot /mnt /bin/bash /part2.sh
@@ -32,11 +45,15 @@ if [ "$USER" == 'root' ] ; then
     reboot;
 else
     cd Arch-config
-    mkdir ~/.config
-    mkdir ~/.themes
+    mkdir ~/.config ~/.local ~/.local/bin ~/.local/share ~/.local/share/backgrounds ~/.local/share/fonts ~/.local/share/themes
     cp -r dotconfig/* ~/.config
     cp dotxinitrc ~/.xinitrc
-    cp -r dotthemes/* ~/.themes
+    cp -r dotlocal/share/themes/* ~/.local/share/themes
+    cp -r dotlocal/share/backgrounds/* ~/.local/share/backgrounds
+    cp -r dotlocal/share/fonts/* ~/.local/share/fonts
+    cp -r dotlocal/bin/* ~/.local/bin
+    # Apply new fonts
+    fc-cache -f
     # Installing yay and getting the required packages
     cd
     git clone https://aur.archlinux.org/yay.git
@@ -44,7 +61,7 @@ else
     makepkg -si
     cd
     rm -rf yay
-    yay -S btop polkit bspwm alacritty polybar rofi sxhkd nautilus feh picom xorg-server dunst xorg-xinit nerd-fonts-fira-code ttf-font-awesome betterlockscreen flameshot firefox
+    yay -S btop polkit bspwm alacritty polybar rofi sxhkd nautilus feh picom xorg-server dunst xorg-xinit nerd-fonts-fira-code ttf-font-awesome betterlockscreen flameshot firefox wget xdg-ninja mpv mpd ani-cli visual-studio-code-bin pfetch man-db xdg-user-dirs pipewire wireplumber pipewire-alsa pipewire-pulse pipewire-jack
     #Ask what GPU is used for proper drivers
     while true; do
         read -rp "Do you use an amd (AMD) or nvidia (NVIDIA) gpu or is this a virtual machine(VM)?   " nav
@@ -58,7 +75,9 @@ else
             echo 'Wrong choice, use either nvidia, amd or vm'
         fi
     done
-    echo "PATH='$HOME/.config/rofi/bin:$PATH'" >> ~/.zshrc
+    # Install oh my zsh
+    sh -c "$(wget https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
+    echo "PATH='$HOME/.local/bin:$PATH'" >> ~/.zshrc
     cd
     rm -rf Arch-config
     startx
