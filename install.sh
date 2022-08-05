@@ -15,16 +15,16 @@ if [ "$USER" == 'root' ] ; then
     while true; do
         read -rp "AMD or Intel CPU?   " cpu
         if [ "$cpu" == 'Intel' ] || [ "$cpu" == 'intel' ] || [ "$cpu" == 'INTEL' ] ; then
-            pacstrap /mnt intel-ucode;
+            code="intel-ucode"
             break
         elif [ "$cpu" == 'amd' ] || [ "$cpu" == 'Amd' ] || [ "$cpu" == 'AMD' ] ; then
-            pacstrap /mnt amd-ucode;
+            code="amd-ucode"
             break
         else
            echo "Wrong choice, use AMD or Intel"
         fi
     done
-    pacstrap /mnt base base-devel linux linux-firmware ntp networkmanager grub efibootmgr zsh archlinux-keyring neovim git fontconfig pipewire wireplumber pipewire-alsa pipewire-pulse pipewire-jack
+    pacstrap /mnt base base-devel linux linux-firmware ntp networkmanager grub efibootmgr zsh archlinux-keyring neovim git fontconfig pipewire wireplumber pipewire-alsa pipewire-pulse pipewire-jack pamixer "$code"
     genfstab -U /mnt >> /mnt/etc/fstab
     echo "ln -sf /usr/share/zoneinfo/NZ /etc/localtime; 
     nvim /etc/locale.gen;
@@ -54,7 +54,7 @@ else
     cp -r dotlocal/share/fonts/* ~/.local/share/fonts
     cp -r dotlocal/bin/* ~/.local/bin
     # Apply new fonts
-    fc-cache -f
+    fc-cache -vf
     # Installing yay and getting the required packages
     cd
     git clone https://aur.archlinux.org/yay.git
@@ -63,8 +63,8 @@ else
     cd
     rm -rf yay
     yay -S btop polkit bspwm alacritty polybar rofi sxhkd nautilus feh picom xorg-server dunst xorg-xinit nerd-fonts-fira-code ttf-font-awesome betterlockscreen flameshot firefox wget xdg-ninja mpv mpd ani-cli visual-studio-code-bin pfetch man-db xdg-user-dirs
-    #Ask what GPU is used for proper drivers
     xdg-user-dirs-update
+    #Ask what GPU is used for proper drivers
     while true; do
         read -rp "Do you use an amd (AMD) or nvidia (NVIDIA) gpu or is this a virtual machine(VM)?   " nav
         if [ "$nav" == 'NVIDIA' ] || [ "$nav" == 'Nvidia' ] || [ "$nav" == 'nvidia' ] ; then
@@ -78,8 +78,7 @@ else
         fi
     done
     # Install oh my zsh
-    sh -c "$(wget https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
-    echo "PATH='$HOME/.local/bin:$PATH'" >> ~/.zshrc
+    sh -c "$(wget https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -; echo "PATH='$HOME/.local/bin:$PATH'" >> ~/.zshrc)"
     cd
     rm -rf Arch-config
     startx
