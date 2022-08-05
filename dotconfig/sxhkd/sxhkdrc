@@ -8,7 +8,7 @@ super + Return
 
 # program launcher
 super + @space
-	launcher_colorful
+	$HOME/.config/rofi/bin/launcher_colorful
 
 # make sxhkd reload its configuration files:
 super + Escape
@@ -126,11 +126,11 @@ super + {Left,Down,Up,Right}
 
 # volume control
 XF86AudioLowerVolume
-	sh -c "pactl set-sink-mute 51 false ; pactl set-sink-volume 51 -5%"
+  changevolume down
 XF86AudioRaiseVolume
-	sh -c "pactl set-sink-mute 51 false ; pactl set-sink-volume 51 +5%"
+  changevolume up
 XF86AudioMute
-        pactl set-sink-mute 51 toggle
+  changevolume mute
 
 # Lockscreen
 super + @l
