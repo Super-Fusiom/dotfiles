@@ -62,7 +62,7 @@ else
     makepkg -si
     cd
     rm -rf yay
-    yay -S btop polkit bspwm alacritty polybar rofi sxhkd nautilus feh picom xorg-server dunst xorg-xinit nerd-fonts-fira-code ttf-font-awesome betterlockscreen flameshot firefox wget xdg-ninja mpv mpd ani-cli visual-studio-code-bin pfetch man-db xdg-user-dirs
+    yay -S btop polkit bspwm alacritty polybar rofi sxhkd nautilus feh picom xorg-server dunst xorg-xinit nerd-fonts-fira-code ttf-font-awesome betterlockscreen flameshot firefox wget xdg-ninja mpv mpd ani-cli visual-studio-code-bin pfetch man-db papirus-icon-theme xdg-user-dirs
     xdg-user-dirs-update
     #Ask what GPU is used for proper drivers
     while true; do
