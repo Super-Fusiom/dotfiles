@@ -26,26 +26,15 @@ if [ "$USER" == 'root' ] ; then
     done
     pacstrap /mnt base base-devel linux linux-firmware ntp networkmanager grub efibootmgr zsh archlinux-keyring neovim git fontconfig pipewire wireplumber pipewire-alsa pipewire-pulse pipewire-jack pamixer "$code"
     genfstab -U /mnt >> /mnt/etc/fstab
-    echo "ln -sf /usr/share/zoneinfo/NZ /etc/localtime; 
-    nvim /etc/locale.gen;
-    locale-gen; echo 'LANG=en_NZ.UTF-8' >> /etc/locale.conf; echo 'auto' >> /etc/hostname; 
-    systemctl enable NetworkManager;
-    sudo systemctl enable ntpd; 
-    useradd -m paul; passwd paul; 
-    EDITOR=nvim visudo; 
-    grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=GRUB; 
-    grub-mkconfig -o /boot/grub/grub.cfg; 
-    chsh -s /usr/bin/zsh paul;
-    exit;" >> /mnt/part2.sh
-    chmod +x /mnt/part2.sh 
+    mv /root/Arch-config/part2.sh /mnt
+    chmod +x /mnt/part2.sh
+    cp -r /root/Arch-config /mnt 
     arch-chroot /mnt /bin/bash /part2.sh
-    cp -r /root/Arch-config /mnt/home/paul
     #Hand off perms to user for execution 
-    echo "sudo chown paul ~/Arch-config; source ~/Arch-config/install.sh" >> /mnt/home/paul/.zshrc
     rm /mnt/part2.sh
     reboot;
 else
-    cd Arch-config
+    cd /Arch-config
     mkdir ~/.config ~/.local ~/.local/bin ~/.local/share ~/.local/share/backgrounds ~/.local/share/fonts ~/.local/share/themes
     cp -r dotconfig/* ~/.config
     cp dotxinitrc ~/.xinitrc
@@ -62,8 +51,10 @@ else
     makepkg -si
     cd
     rm -rf yay
-    yay -S btop polkit bspwm alacritty polybar rofi sxhkd nautilus feh picom xorg-server dunst xorg-xinit nerd-fonts-fira-code ttf-font-awesome betterlockscreen flameshot firefox wget xdg-ninja mpv mpd ani-cli visual-studio-code-bin pfetch man-db papirus-icon-theme xdg-user-dirs
-    xdg-user-dirs-update
+    yay -S btop polkit bspwm alacritty polybar rofi sxhkd nautilus feh picom xorg-server dunst xorg-xinit nerd-fonts-fira-code ttf-font-awesome betterlockscreen flameshot firefox wget xdg-ninja mpv mpd ani-cli visual-studio-code-bin pfetch man-db papirus-icon-theme xdg-user-dirs discord ncmpcpp youtube-dl yt-dlp
+    xdg-user-dirs-update 
+    # Enable and start MPD
+    systemctl --user enable --now mpd
     #Ask what GPU is used for proper drivers
     while true; do
         read -rp "Do you use an amd (AMD) or nvidia (NVIDIA) gpu or is this a virtual machine(VM)?   " nav
@@ -78,8 +69,9 @@ else
         fi
     done
     # Install oh my zsh
-    sh -c "$(wget https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -; echo "PATH='$HOME/.local/bin:$PATH'" >> ~/.zshrc)"
+    wget https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -
+    echo /Arch-config/aliases.txt >> ~/.zshrc
     cd
-    rm -rf Arch-config
+    rm -rf /Arch-config
     startx
 fi
