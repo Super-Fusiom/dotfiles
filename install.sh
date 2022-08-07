@@ -1,5 +1,6 @@
 #!/bin/bash
 if [ "$USER" == 'root' ] ; then
+    reflector --latest 5 --sort rate --save /etc/pacman.d/mirrorlist
     lsblk
     read -rp "Disk to install?  " disk     
     timedatectl set-ntp true 
