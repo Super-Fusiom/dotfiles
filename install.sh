@@ -31,7 +31,6 @@ if [ "$USER" == 'root' ] ; then
     chmod +x /mnt/part2.sh
     cp -r /root/Arch-config /mnt 
     arch-chroot /mnt /bin/bash /part2.sh
-    #Hand off perms to user for execution 
     rm /mnt/part2.sh
     reboot;
 else
@@ -52,6 +51,7 @@ else
     makepkg -si
     cd
     rm -rf yay
+    # Install le packages
     yay -S btop polkit bspwm alacritty polybar rofi sxhkd nautilus feh picom xorg-server dunst xorg-xinit nerd-fonts-fira-code ttf-font-awesome betterlockscreen flameshot firefox wget xdg-ninja mpv mpd ani-cli visual-studio-code-bin pfetch man-db papirus-icon-theme xdg-user-dirs discord ncmpcpp youtube-dl yt-dlp
     xdg-user-dirs-update 
     # Enable and start MPD
@@ -70,7 +70,10 @@ else
         fi
     done
     # Install oh my zsh
-    wget https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -
+    cd 
+    wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
+    sh install.sh
+    rm install.sh
     echo /Arch-config/aliases.txt >> ~/.zshrc
     cd
     rm -rf /Arch-config
