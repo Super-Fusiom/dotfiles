@@ -72,7 +72,7 @@ else
     # Install oh my zsh
     cd 
     wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
-    sh install.sh
+    ./install.sh
     rm install.sh
     echo /Arch-config/aliases.txt >> ~/.zshrc
     cd
