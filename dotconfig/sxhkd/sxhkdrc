@@ -138,5 +138,13 @@ super + @l
 # Screenshot
 super + shift + s
 	flameshot gui
-
+# File manager
+super + e
+  nautilus
+# Powermenu
+super + x
+  $HOME/.config/rofi/bin/powermenu
+# discord
+super + d
+  discord
 
