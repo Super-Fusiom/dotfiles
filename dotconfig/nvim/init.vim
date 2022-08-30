@@ -32,6 +32,17 @@ set cursorcolumn
 set wildmode=longest,list,full
 " Fix splitting
 set splitbelow splitright
-" Vim-airline
+
+"" NVim Plugins
+call plug#begin()
+
+" Vim-Airline
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+" COC (autocompleate)
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Nerd Tree
+Plug 'preservim/nerdtree'
 
 
+call plug#end()

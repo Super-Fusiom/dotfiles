@@ -53,5 +53,5 @@ fi
 
 feh --bg-fill --randomize ~/.local/share/backgrounds
 xsetroot -cursor_name left_ptr
-picom -f --config $HOME/.config/picom/picom.conf &
+picom -b --config $HOME/.config/picom/picom.conf &
 exec bspwm
