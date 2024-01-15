@@ -25,7 +25,7 @@ if [ "$USER" == 'root' ] ; then
            echo "Wrong choice, use AMD or Intel"
         fi
     done
-    pacstrap /mnt base base-devel linux linux-firmware ntp networkmanager grub efibootmgr zsh archlinux-keyring neovim git fontconfig pipewire wireplumber pipewire-alsa pipewire-pulse pipewire-jack lightdm "$code"
+    pacstrap /mnt base base-devel linux linux-firmware ntp dhcpcd grub efibootmgr zsh archlinux-keyring neovim git fontconfig pipewire wireplumber pipewire-alsa pipewire-pulse pipewire-jack lightdm "$code"
     genfstab -U /mnt >> /mnt/etc/fstab
     mv /root/Arch-config/part2.sh /mnt
     chmod +x /mnt/part2.sh
@@ -37,11 +37,7 @@ else
     cd /Arch-config
     mkdir -p ~/.config ~/.local{bin, share/{backgrounds, fonts, themes}, src}
     cp -r dotconfig/* ~/.config
-    cp dotxinitrc ~/.xinitrc
-    cp -r dotlocal/share/themes/* ~/.local/share/themes
-    cp -r dotlocal/share/backgrounds/* ~/.local/share/backgrounds
-    cp -r dotlocal/share/fonts/* ~/.local/share/fonts
-    cp -r dotlocal/bin/* ~/.local/bin
+    cp -r dotlocal/* ~/.local
     # Apply new fonts
     fc-cache -vf
     # Installing yay and getting the required packages
@@ -52,7 +48,7 @@ else
     cd
     rm -rf yay
     # Install le packages
-    yay -S btop polkit bspwm alacritty polybar rofi sxhkd nautilus feh picom xorg-server dunst xorg-xinit nerd-fonts-fira-code ttf-font-awesome betterlockscreen flameshot firefox wget xdg-ninja mpv mpd ani-cli visual-studio-code-bin pfetch man-db papirus-icon-theme xdg-user-dirs discord ncmpcpp youtube-dl yt-dlp
+    yay -S btop polkit bspwm alacritty polybar rofi sxhkd nautilus feh picom xorg-server dunst nerd-fonts-fira-code ttf-font-awesome betterlockscreen flameshot firefox wget xdg-ninja mpv mpd ani-cli visual-studio-code-bin man-db papirus-icon-theme xdg-user-dirs discord ncmpcpp youtube-dl yt-dlp tldr bat
     xdg-user-dirs-update 
     # Enable and start MPD
     systemctl --user enable --now mpd
@@ -71,4 +67,5 @@ else
     done
     rm -rf /Arch-config
     echo "All Done!!!"
+    reboot
 fi
