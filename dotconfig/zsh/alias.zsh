@@ -1,9 +1,8 @@
-alias eat="yay -S"
-alias poop="yay -Rs"
-alias think="yay -Syu archlinux-keyring"
 alias vim="nvim"
+alias ls="ls -alh --color"
 alias cd..="cd .."
-alias cls="clear"
+alias cat="bat"
+
 # MPV alias for fun
 alias serbia="mpv 'https://www.youtube.com/watch?v=GURv4guxIcE'"
 alias hotel="mpv 'https://www.youtube.com/watch?v=EFH9soeufXY'"
@@ -17,7 +16,3 @@ alias monopolyfloss="mpv 'https://www.youtube.com/watch?v=zdVeaqinEXM'"
 alias mortalkombat="mpv \"https://youtu.be/EAwWPadFsOA\""
 # Useful
 alias yt2mp3="yt-dlp -f 'ba' -x --audio-format mp3 --embed-thumbnail"
-
-# Export stuff
-export PATH="$HOME/.emacs.d/bin:$PATH"
-export PATH="$HOME/.local/bin:$PATH"
