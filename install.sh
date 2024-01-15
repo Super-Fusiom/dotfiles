@@ -69,13 +69,6 @@ else
             echo 'Wrong choice, use either nvidia, amd or vm'
         fi
     done
-    # Install oh my zsh
-    cd 
-    wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
-    ./install.sh
-    rm install.sh
-    echo /Arch-config/aliases.txt >> ~/.zshrc
-    cd
     rm -rf /Arch-config
-    startx
+    echo "All Done!!!"
 fi
