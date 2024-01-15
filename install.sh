@@ -25,7 +25,7 @@ if [ "$USER" == 'root' ] ; then
            echo "Wrong choice, use AMD or Intel"
         fi
     done
-    pacstrap /mnt base base-devel linux linux-firmware ntp networkmanager grub efibootmgr zsh archlinux-keyring neovim git fontconfig pipewire wireplumber pipewire-alsa pipewire-pulse pipewire-jack pamixer "$code"
+    pacstrap /mnt base base-devel linux linux-firmware ntp networkmanager grub efibootmgr zsh archlinux-keyring neovim git fontconfig pipewire wireplumber pipewire-alsa pipewire-pulse pipewire-jack lightdm "$code"
     genfstab -U /mnt >> /mnt/etc/fstab
     mv /root/Arch-config/part2.sh /mnt
     chmod +x /mnt/part2.sh
@@ -35,7 +35,7 @@ if [ "$USER" == 'root' ] ; then
     reboot;
 else
     cd /Arch-config
-    mkdir ~/.config ~/.local ~/.local/bin ~/.local/share ~/.local/share/backgrounds ~/.local/share/fonts ~/.local/share/themes
+    mkdir -p ~/.config ~/.local{bin, share/{backgrounds, fonts, themes}, src}
     cp -r dotconfig/* ~/.config
     cp dotxinitrc ~/.xinitrc
     cp -r dotlocal/share/themes/* ~/.local/share/themes
