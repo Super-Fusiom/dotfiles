@@ -8,7 +8,7 @@ nvim /etc/locale.gen
 locale-gen 
 echo "LANG=en_NZ.UTF-8" >> /etc/locale.conf
 echo "$hostname" >> /etc/hostname
-systemctl enable NetworkManager
+systemctl enable dhcpcd
 systemctl enable ntpd
 useradd -m "$user"
 passwd "$user"
