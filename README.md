@@ -1,2 +1,2 @@
-# Arch-config
-My config files all in one repo
+# dotconfig
+Any linux configs into one single repo
