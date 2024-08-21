@@ -2,20 +2,20 @@
 
 pgrep -x sxhkd > /dev/null || sxhkd &
 
-$HOME/.config/polybar/launch.sh --blocks &
+bspc monitor DP-0 -d I II III
+bspc monitor HDMI-0 -d IV V VI
 
-bspc monitor -d I II III IV
+feh --bg-fill $HOME/.local/share/backgrounds/1st.png $HOME/.local/share/backgrounds/2nd.png
 
-bspc config border_width         0
+$HOME/.config/polybar/launch.sh
+
+bspc config border_width         2
 bspc config window_gap          12
 
 bspc config split_ratio          0.52
 bspc config borderless_monocle   true
 bspc config gapless_monocle      true
 
+bspc rule -a alacritty desktop='^2'
 bspc rule -a firefox desktop='^1'
-bspc rule -a Alacritty desktop='^2'
-bspc rule -a steam desktop='^3'
 bspc rule -a discord desktop='^4'
-bspc rule -a Org.gnome.nautilus desktop='^5'
-bspc rule -a mpv desktop='^6'

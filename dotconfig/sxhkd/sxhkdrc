@@ -4,11 +4,11 @@
 
 # terminal emulator
 super + Return
-  alacritty
+	alacritty
 
 # program launcher
 super + @space
-	$HOME/.config/rofi/bin/launcher_colorful
+	rofi -show drun
 
 # make sxhkd reload its configuration files:
 super + Escape
@@ -120,31 +120,14 @@ super + alt + shift + {h,j,k,l}
 super + {Left,Down,Up,Right}
 	bspc node -v {-20 0,0 20,0 -20,20 0}
 
-#
-# Paul's Stuff
-#
+### Pauls town
 
-# volume control
-XF86AudioLowerVolume
-  changevolume down
 XF86AudioRaiseVolume
-  changevolume up
+  pactl set-sink-volume @DEFAULT_SINK@ +5%
+XF86AudioLowerVolume
+  pactl set-sink-volume @DEFAULT_SINK@ -5%
 XF86AudioMute
-  changevolume mute
+  pactl set-sink-mute @DEFAULT_SINK@ toggle
 
-# Lockscreen
-super + @l
-	betterlockscreen -l
-# Screenshot
 super + shift + s
-	flameshot gui
-# File manager
-super + e
-  nautilus
-# Powermenu
-super + x
-  $HOME/.config/rofi/bin/powermenu
-# discord
-super + d
-  discord
-
+  flameshot gui
