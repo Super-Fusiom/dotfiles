@@ -1,5 +1,8 @@
 [font]
-size = 15
+size = 8 
 
 [font.normal]
 family = "JetBrains Mono"
+
+[window]
+opacity = 0.9
