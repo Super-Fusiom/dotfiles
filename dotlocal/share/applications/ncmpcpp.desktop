@@ -1,0 +1,5 @@
+[Desktop Entry]
+Name=ncmpcpp
+Exec=alacritty --class "ncmpcpp" -e ncmpcpp
+Type=Application
+Terminal=False
