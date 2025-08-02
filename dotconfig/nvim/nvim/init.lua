@@ -1,2 +1,3 @@
-require("paul.core")
-require("paul.lazy")
+require("super-fusiom.core.options")
+require("super-fusiom.core.keybinds")
+require("super-fusiom")
